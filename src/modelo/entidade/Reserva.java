@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import modelo.excecao.DominioExcecao;
+
 public class Reserva {
 	
 	private Integer numeroquarto;
@@ -16,7 +18,10 @@ public class Reserva {
 		
 	}
 
-	public Reserva(Integer numeroquarto, Date checkin, Date checkout) {
+	public Reserva(Integer numeroquarto, Date checkin, Date checkout)  {
+		 if (!checkout.after(checkin))  {
+			  throw new DominioExcecao("Data inválida");
+		  }
 		this.numeroquarto = numeroquarto;
 		this.checkin = checkin;
 		this.checkout = checkout;
@@ -44,20 +49,16 @@ public class Reserva {
        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);    	
     }
     
-    public String updateDatas (Date checkin, Date checkout) {
+    public void updateDatas (Date checkin, Date checkout)   {
     	  Date agora = new Date();
-
- 		  if (checkin.before(agora) || checkout.before(agora))
- 		  {
- 			   return "Erro na data, deve ser digitado datas futuras.";
+ 		  if (checkin.before(agora) || checkout.before(agora)) {
+ 			   throw new DominioExcecao("Erro na data, deve ser digitado datas futuras");
  		  }
- 		   if (!checkout.after(checkin))
- 		  {
- 			return "Data inválida";
+ 		   if (!checkout.after(checkin))  {
+ 			  throw new DominioExcecao("Data inválida");
  		  }
     	this.checkin = checkin;
     	this.checkout = checkout;
-    	return null;
     }
 	
     @Override
