@@ -44,9 +44,20 @@ public class Reserva {
        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);    	
     }
     
-    public void updateDatas (Date checkin, Date checkout) {
+    public String updateDatas (Date checkin, Date checkout) {
+    	  Date agora = new Date();
+
+ 		  if (checkin.before(agora) || checkout.before(agora))
+ 		  {
+ 			   return "Erro na data, deve ser digitado datas futuras.";
+ 		  }
+ 		   if (!checkout.after(checkin))
+ 		  {
+ 			return "Data inválida";
+ 		  }
     	this.checkin = checkin;
     	this.checkout = checkout;
+    	return null;
     }
 	
     @Override

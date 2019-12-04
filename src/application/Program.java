@@ -40,29 +40,16 @@ public class Program {
 		 		  checkout = sdf.parse(sc.next());
 		 		  
 		 		  
-		 		  Date agora = new Date();
+		 		   String erro =reserva.updateDatas(checkin, checkout);
 		 		  
-		 		  if (checkin.before(agora) || checkout.before(agora))
-		 		  {
-		 			  System.out.println("Erro na data, deve ser digitado datas futuras.");
-		 		  }
-		 		  else if (!checkout.after(checkin))
-		 		  {
-		 			 System.out.println("Data inválida");  
-		 		  }
-		 		  else 
-		 		  {
-		 					 		  
-		 		  
-		 		  reserva.updateDatas(checkin, checkout);
-		 		  
+		 		   if (erro != null) {
+		 			   System.out.println("Erro na Reserva: "+erro);
+		 		   }
+		 		   else {
 		 		 System.out.println("Reserva: "+reserva);
-		    }
-		    }
-		 
-		 
-		
-		
+		                                                  }
+		                                                             }
+		 			
 		sc.close();
 
 	}
